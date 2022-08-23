@@ -18,8 +18,7 @@ script:
     - echo "Package Project"
 
 after_success:
-    - echo "Build Sucess"
-    - cd build
+    - echo "Build Success"
 
 deploy:
     provider: s3
@@ -29,3 +28,5 @@ deploy:
     skip_cleanup: true
     upload-dir: build
     local_dir: build
+    on:
+        branch: main
