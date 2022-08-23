@@ -27,7 +27,7 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $AWS_BUCKET
     skip_cleanup: true
-    upload-dir: build
+#    upload-dir: build
     local_dir: build
     on:
         branch: main
