@@ -7,6 +7,7 @@ branches:
         - main
 
 install:
+    - echo "$date=$(Get-Date -format yyyyMMdd-Hmmss)"
     - echo "Start Install Dependencies"
     - npm install
 
