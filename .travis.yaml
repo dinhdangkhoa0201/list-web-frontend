@@ -4,14 +4,15 @@ node_js:
     - node
 
 install:
-    - echo "Start Install"
+    - echo "Start Install Dependencies"
     - npm install
 
-script:
+before_script:
     - echo "Build Project"
     - npm run build
 
-after_success:
+script:
+    - echo "Package Project"
 
 deploy:
     provider: s3
@@ -20,3 +21,5 @@ deploy:
     bucket: $AWS_BUCKET
     skip_cleanup: true
     upload-dir: build
+    on:
+        branch: main
