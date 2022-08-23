@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+    - '16'
+    - node
+
+install:
+    - echo "Start Install"
+    - npm install
+
+script:
+    - echo "Build Project"
+    - npm run build
+
+after_success:
+
+deploy:
+    provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $AWS_BUCKET
+    skip_cleanup: true
+    upload-dir: build
