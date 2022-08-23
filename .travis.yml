@@ -2,6 +2,10 @@ language: node_js
 node_js:
     - '16'
 
+branches:
+    only:
+        - main
+
 install:
     - echo "Start Install Dependencies"
     - npm install
@@ -13,6 +17,10 @@ before_script:
 script:
     - echo "Package Project"
 
+after_success:
+    - echo "Build Sucess"
+    - cd build
+
 deploy:
     provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
@@ -20,5 +28,4 @@ deploy:
     bucket: $AWS_BUCKET
     skip_cleanup: true
     upload-dir: build
-    on:
-        branch: main
+    local_dir: build
