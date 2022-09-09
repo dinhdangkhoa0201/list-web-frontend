@@ -37,7 +37,7 @@ jobs:
             -   run:
                     name: Deploy
                     command: |
-                        if [ $CIRCLE_BRANCH = 'circleci-project-setup' ]; then
+                        if [ $CIRCLE_BRANCH = 'main' ]; then
                           aws s3 sync build s3://$AWS_BUCKET --delete --exact-timestamps;
                         fi
 workflows:
@@ -47,11 +47,11 @@ workflows:
                     filters:
                         branches:
                             only:
-                                - circleci-project-setup
+                                - main
             -   deploy:
                     requires:
                         - build
                     filters:
                         branches:
                             only:
-                                - circleci-project-setup
+                                - main
