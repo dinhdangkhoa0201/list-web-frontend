@@ -54,7 +54,7 @@ const columns: ColumnsType<ColumnType> = [
 export function SystemConstantList() {
     const [items, setItems] = useState<SystemConstantModel[]>();
     const [criteria, setCriteria] = useState<CriteriaRequest>({
-        criteria: new Map<string, object>(),
+        criteria: {},
         orderBy: [] as string[],
         pageIndex: configConstant.PAGE_START_INDEX,
         pageSize: configConstant.PAGE_SIZE

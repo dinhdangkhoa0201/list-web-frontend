@@ -6,7 +6,6 @@ import {CollectionList} from "./Collection.List";
 export function Collection() {
     return (
         <Layout>
-            <h1>Collection Page</h1>
             <Routes>
                 <Route path={""} element={<CollectionList/>}/>
             </Routes>

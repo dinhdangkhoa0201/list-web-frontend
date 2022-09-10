@@ -108,8 +108,8 @@ const SortableBody = SortableContainer((props: React.HTMLAttributes<HTMLTableSec
 export function MenuList() {
     const [items, setItems] = useState<MenuModel[]>();
     const [criteria, setCriteria] = useState<CriteriaRequest>({
-        criteria: new Map<string, object>(),
-        orderBy: [] as string[],
+        criteria: {},
+        orderBy: ["indexId"],
         pageIndex: configConstant.PAGE_START_INDEX,
         pageSize: configConstant.PAGE_SIZE
     })
@@ -191,12 +191,13 @@ export function MenuList() {
                 </Col>
             </Row>
             <Table rowKey={"indexId"} size={"small"} columns={columns}
-                   dataSource={items} components={{
-                body: {
-                    wrapper: DraggableContainer,
-                    row: DraggableBodyRow
-                }
-            }}/>
+                   dataSource={items}
+                   components={{
+                       body: {
+                           wrapper: DraggableContainer,
+                           row: DraggableBodyRow
+                       }
+                   }}/>
         </Layout>
     )
 }

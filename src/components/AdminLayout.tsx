@@ -1,22 +1,23 @@
 import React, {useEffect, useState} from "react";
-import {Col, Grid, Layout, Row} from "antd";
+import {Col, Layout, Row} from "antd";
 import {Navigation} from "./Navigation";
 import {Route, Routes, useLocation} from "react-router-dom";
 import {Collection} from "../features/collection/Collection";
 import {Topic} from "../features/topic/Topic";
 import {User} from "../features/user/User";
 import {WebItem} from "../features/webItem/WebItem";
-import {BreadcrumbComponent} from "./BreadcrumbComponent";
 import {Menu} from "../features/menu/Menu";
 import {MenuModel} from "../models/MenuModel";
 import {menuApi} from "../api/Menu.api";
 import {PageWaiting} from "./PageWaiting";
 import {SystemConstant} from "../features/systemConstant/SystemConstant";
+import {DashBoard} from "../features/dashboard/DashBoard";
+import {HeaderComponent} from "./HeaderComponent";
+import {Icon} from "../features/icon/Icon";
 
 const {Header, Content, Sider, Footer} = Layout;
 
 export function AdminLayout() {
-
     const [collapse, setCollapse] = useState(false);
     const location = useLocation();
     const [listMenu, setListMenu] = useState<MenuModel[]>([]);
@@ -42,6 +43,7 @@ export function AdminLayout() {
 
     const handleMapMenuPath = (listMenu: MenuModel[]) => {
         const map: Map<string, string> = new Map<string, string>();
+        map.set("", "Home");
         listMenu.forEach(e => {
             map.set(e.path, e.name);
         });
@@ -61,9 +63,11 @@ export function AdminLayout() {
                     :
                     <>
                         {/* Navigation */}
-                        <Sider collapsible collapsed={collapse}
+                        <Sider collapsible collapsed={collapse} theme={"light"}
                                onCollapse={value => setCollapse(value)}>
-                            <div id="logo"/>
+                            <Layout id="logo">
+
+                            </Layout>
                             <Navigation location={location}
                                         listMenu={listMenu}/>
                         </Sider>
@@ -71,23 +75,32 @@ export function AdminLayout() {
 
                         <Layout>
                             {/* Header */}
-                            <Header/>
+                            <Header style={{
+                                background: "#f0f2f5",
+                                paddingLeft: 15,
+                                paddingTop: 10
+                            }}>
+                                <HeaderComponent location={location}
+                                                 menuMapPath={mapMenuPath}/>
+                            </Header>
                             {/* /Header */}
 
                             {/* Content */}
                             <Content style={{margin: "15px"}}>
-                                <BreadcrumbComponent location={location}
-                                                     menuMapPath={mapMenuPath}/>
                                 <Routes>
+                                    <Route path={""} element={<DashBoard
+                                        listMenus={listMenu}/>}/>
                                     <Route path={"/collections/*"}
                                            element={<Collection/>}/>
                                     <Route path={"/topics/*"}
                                            element={<Topic/>}/>
-                                    <Route path={"/users/*"} element={<User/>} />
+                                    <Route path={"/users/*"} element={<User/>}/>
                                     <Route path={"/webItems/*"}
                                            element={<WebItem/>}/>
                                     <Route path={"/menus/*"} element={<Menu/>}/>
-                                    <Route path={"/systemConstants/*"} element={<SystemConstant/>}/>
+                                    <Route path={"/icons/*"} element={<Icon/>}/>
+                                    <Route path={"/systemConstants/*"}
+                                           element={<SystemConstant/>}/>
                                 </Routes>
                             </Content>
                             {/* /Content */}

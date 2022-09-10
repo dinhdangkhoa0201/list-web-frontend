@@ -1,16 +1,8 @@
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-} from '@ant-design/icons';
 import React, {useEffect, useState} from "react";
-import {Menu, MenuProps} from "antd";
-import * as uuid from "uuid";
+import {Card, Col, Menu, MenuProps, Row} from "antd";
 import {Link, Location} from "react-router-dom";
 import {MenuModel} from "../models/MenuModel";
 import DynamicIcon from "../utils/DynamicIcon";
-
 
 type NavigationProps = {
     location: Location,
@@ -24,8 +16,21 @@ function getItem(label: React.ReactNode, key: React.Key, icon?: string, path?: s
         key: path,
         icon: icon ? <DynamicIcon type={icon}/> : "",
         label: path ? <Link to={path}>{label}</Link> : {label},
-        children
+        children,
     } as MenuItem
+}
+
+function renderMenuCardItem(menuItem: MenuModel) {
+    return (
+        <Menu.Item key={menuItem.path}>
+            <Card>
+                <Row>
+                    <Col>
+                    </Col>
+                </Row>
+            </Card>
+        </Menu.Item>
+    )
 }
 
 export function Navigation(props: NavigationProps) {
@@ -37,11 +42,14 @@ export function Navigation(props: NavigationProps) {
             return getItem(e.name, e.id, e.icon, e.path);
         });
         setMenuItems(temp);
+        console.log(props.listMenu);
     }, []);
 
     return (
-        <Menu theme={"dark"} defaultSelectedKeys={["1"]} mode={"inline"}
+        <Menu theme={"light"} defaultSelectedKeys={["1"]} mode={"inline"}
               selectedKeys={[`/${location.pathname.split("/")[1]}`]}
-              items={menuItems} onClick={(e) => e}/>
+              items={menuItems} onClick={(e) => e}>
+
+        </Menu>
     )
 }

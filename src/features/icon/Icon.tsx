@@ -1,13 +1,13 @@
 import React from "react";
 import {Layout} from "antd";
 import {Route, Routes} from "react-router-dom";
-import {SystemConstantList} from "./SystemConstant.List";
+import {IconList} from "./Icon.List";
 
-export function SystemConstant() {
+export function Icon() {
     return (
         <Layout>
             <Routes>
-                <Route path={""} element={<SystemConstantList/>}/>
+                <Route path={""} element={<IconList/>}/>
             </Routes>
         </Layout>
     )

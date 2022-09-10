@@ -68,7 +68,7 @@ const handleRedirectUrl = (url: string) => {
 export function WebItemList(props: WebItemProps) {
     const [items, setItems] = useState<WebItemModel[]>();
     const [criteria, setCriteria] = useState<CriteriaRequest>({
-        criteria: new Map<string, object>(),
+        criteria: {},
         orderBy: [] as string[],
         pageIndex: configConstant.PAGE_START_INDEX,
         pageSize: configConstant.PAGE_SIZE

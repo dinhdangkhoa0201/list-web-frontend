@@ -1,5 +1,5 @@
 export interface CriteriaRequest {
-    criteria: Map<string, object>,
+    criteria: object,
     orderBy: string[],
     pageIndex: number,
     pageSize: number

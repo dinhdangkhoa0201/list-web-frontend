@@ -7,7 +7,6 @@ import {WebItemAdd} from "./WebItem.Add";
 export function WebItem() {
     return (
         <Layout>
-            <h1>Web Item Page</h1>
             <Routes>
                 <Route path={""} element={<WebItemList/>}/>
                 <Route path={"/add"} element={<WebItemAdd/>}/>

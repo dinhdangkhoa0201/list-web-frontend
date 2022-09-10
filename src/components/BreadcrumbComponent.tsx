@@ -11,10 +11,6 @@ export function BreadcrumbComponent(props: BreadcrumbProps) {
     const location = props.location;
     const menuMapPath: Map<string, string> = props.menuMapPath;
 
-    useEffect(() => {
-
-    }, []);
-
     const renderListBreadcrumb = (pathname: string): ReactNode[] => {
         const list = pathname.split("/");
         list.shift();

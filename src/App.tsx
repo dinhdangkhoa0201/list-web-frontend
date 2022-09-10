@@ -1,5 +1,6 @@
 import React from 'react';
 import "antd/dist/antd.css"
+import "@ant-design/compatible/assets/index.css";
 import {AdminLayout} from "./components/AdminLayout";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {NotFound} from "./components/NotFound";

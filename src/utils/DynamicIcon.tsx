@@ -1,15 +1,16 @@
-import loadable from "@loadable/component";
-import React from "react";
+import React from 'react'
+import * as icons from '@ant-design/icons'
 
-
-type DynamicIconProps = {
+const DynamicIcon = (props: {
     type: string
-}
+}) => {
 
-// @ts-ignore
-const DynamicIcon = loadable((props: DynamicIconProps) =>
-    import(`@ant-design/icons/lib/icons/${props.type}.js`)
-        .catch(err =>
-            import(`@ant-design/icons/lib/icons/WarningOutlined.js`)));
-
-export default DynamicIcon;
+    const {
+        type
+    } = props;
+    const antIcon: {
+        [key: string]: any
+    } = icons;
+    return React.createElement(antIcon[type]);
+};
+export default DynamicIcon
