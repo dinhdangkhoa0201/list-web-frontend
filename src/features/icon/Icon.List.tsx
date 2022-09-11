@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Avatar, Button, Col, Layout, Row, Space, Table} from "antd";
+import {Button, Col, Layout, Row, Space, Table} from "antd";
 import {ColumnsType} from "antd/es/table";
 import DynamicIcon from "../../utils/DynamicIcon";
 import {Link, useLocation} from "react-router-dom";
@@ -12,6 +12,8 @@ import {CriteriaRequest} from "../../requests/CriteriaRequest";
 import {configConstant} from "../../constants/ConfigConstant";
 import {IconModel} from "../../models/IconModel";
 import {iconApi} from "../../api/Icon.api";
+import {IconGridView} from "./IconGridView";
+import {ViewType} from "../../enums/ViewType";
 
 
 type ColumnType = {
@@ -69,16 +71,18 @@ const columns: ColumnsType<ColumnType> = [
 ]
 
 export function IconList() {
-    const [items, setItems] = useState<IconModel[]>();
+    const [items, setItems] = useState<IconModel[]>([]);
     const [paginationPageSize, setPaginationPageSize] = useState<number>(10);
     const [totalItem, setTotalItem] = useState<number>();
+    const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE);
     const [criteria, setCriteria] = useState<CriteriaRequest>({
         criteria: {
             type: "Outlined"
         },
         orderBy: [],
         pageIndex: configConstant.PAGE_START_INDEX,
-        pageSize: configConstant.PAGE_SIZE
+        // pageSize: configConstant.PAGE_SIZE
+        pageSize: 100
     })
     const location = useLocation();
 
@@ -110,10 +114,26 @@ export function IconList() {
         }
     }
 
+    const handleChangeViewType = (viewType: ViewType) => {
+        setViewType(viewType);
+    }
+
     return (
         <Layout>
             <Row style={{marginBottom: "15px"}} justify={"end"}>
-                <Col>
+                <Col span={12}>
+                    <Space>
+                        <Button icon={<DynamicIcon type={"TableOutlined"}/>}
+                                onClick={() => handleChangeViewType(ViewType.TABLE)}>
+                            Table
+                        </Button>
+                        <Button icon={<DynamicIcon type={"AppstoreOutlined"}/>}
+                                onClick={() => handleChangeViewType(ViewType.GRID)}>
+                            Grid
+                        </Button>
+                    </Space>
+                </Col>
+                <Col span={12} style={{textAlign: "right"}}>
                     <Space>
                         <Link to={`${location.pathname}/add`}>
                             <Button type={"primary"}
@@ -122,18 +142,27 @@ export function IconList() {
                     </Space>
                 </Col>
             </Row>
-            <Table rowKey={"id"} size={"small"} columns={columns}
-                   pagination={{
-                       defaultPageSize: paginationPageSize,
-                       pageSize: paginationPageSize,
-                       total: totalItem,
-                       showSizeChanger: true,
-                       pageSizeOptions: ["10", "30", "50"],
-                       onChange: (page, pageSize) => {
-                           handleChangePage(pageSize, page - 1);
-                       }
-                   }}
-                   dataSource={items}/>
+            {
+                viewType === ViewType.TABLE ?
+                    <Table rowKey={"id"} size={"small"} columns={columns}
+                           pagination={{
+                               defaultPageSize: paginationPageSize,
+                               pageSize: paginationPageSize,
+                               total: totalItem,
+                               showSizeChanger: true,
+                               pageSizeOptions: ["10", "30", "50"],
+                               onChange: (page, pageSize) => {
+                                   handleChangePage(pageSize, page - 1);
+                               }
+                           }}
+                           dataSource={items}
+                           scroll={{
+                               x: true,
+                               y: 650
+                           }}/>
+                    :
+                    <IconGridView listIcon={items}/>
+            }
         </Layout>
     )
 }

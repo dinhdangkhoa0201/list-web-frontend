@@ -86,7 +86,8 @@ export function AdminLayout() {
                             {/* /Header */}
 
                             {/* Content */}
-                            <Content style={{margin: "15px"}}>
+                            <Content
+                                style={{margin: "15px", paddingTop: "15px"}}>
                                 <Routes>
                                     <Route path={""} element={<DashBoard
                                         listMenus={listMenu}/>}/>

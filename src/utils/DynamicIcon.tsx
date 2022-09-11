@@ -1,16 +1,20 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import * as icons from '@ant-design/icons'
 
 const DynamicIcon = (props: {
-    type: string
+    type: string,
+    style?: CSSProperties
 }) => {
 
     const {
-        type
+        type,
+        style
     } = props;
     const antIcon: {
         [key: string]: any
     } = icons;
-    return React.createElement(antIcon[type]);
+    return React.createElement(antIcon[type], {
+        style: style
+    });
 };
 export default DynamicIcon
