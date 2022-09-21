@@ -7,7 +7,12 @@ import {Link, useLocation} from "react-router-dom";
 import {webItemApi} from "../../api/WebItem.api";
 import {CriteriaRequest} from "../../requests/CriteriaRequest";
 import {configConstant} from "../../constants/ConfigConstant";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    DownloadOutlined
+} from "@ant-design/icons";
+import {FieldNameConstant} from "../../constants/FieldNameConstant";
 
 type WebItemProps = {
     items?: WebItemModel[],
@@ -46,12 +51,13 @@ const columns: ColumnsType<ColumnType> = [
             <>
                 <Space>
                     <Link to={"#"}>
-                        <Button type={"primary"} icon={<EditOutlined/>} color={"blue"}>
+                        <Button type={"primary"} icon={<EditOutlined/>}
+                                color={"blue"}>
                             Edit
                         </Button>
                     </Link>
                     <Link to={"#"}>
-                        <Button danger icon={<DeleteOutlined />}>
+                        <Button danger icon={<DeleteOutlined/>}>
                             Delete
                         </Button>
                     </Link>
@@ -93,9 +99,16 @@ export function WebItemList(props: WebItemProps) {
         <Layout>
             <Row style={{marginBottom: "15px"}} justify={"end"}>
                 <Col>
-                    <Link to={`${location.pathname}/add`}>
-                        <Button type={"primary"}>ADD</Button>
-                    </Link>
+                    <Space>
+                        <Link to={`${location.pathname}/import`}>
+                            <Button type={"primary"} icon={
+                                <DownloadOutlined/>}>{FieldNameConstant.IMPORT}</Button>
+                        </Link>
+                        <Link to={`${location.pathname}/add`}>
+                            <Button
+                                type={"primary"}>{FieldNameConstant.ADD}</Button>
+                        </Link>
+                    </Space>
                 </Col>
             </Row>
 

@@ -6,6 +6,8 @@ export const FieldNameConstant = {
     IMAGE: "Image",
     CODE: "Code",
     ICON: "Icon",
+    IMPORT: "Import",
+    ADD: "Add",
 
     UPLOAD: "Upload",
 
@@ -17,5 +19,7 @@ export const FieldNameConstant = {
 
     INPUT: "Input ",
     SELECT: "Please select ",
-    CLICK: "Click to"
+    CLICK: "Click to",
+    SELECT_FILE: "Select File",
+    FILE: "File"
 }

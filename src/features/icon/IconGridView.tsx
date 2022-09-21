@@ -1,14 +1,23 @@
-import React from "react";
-import {Avatar, Card, Col, Layout, Row, Space, Typography} from "antd";
+import React, {useEffect} from "react";
+import {Card, Col, Layout, Row, Space, Typography} from "antd";
 import {IconModel} from "../../models/IconModel";
 import DynamicIcon from "../../utils/DynamicIcon";
+import {IconGridViewScreen} from "../../enums/IconGridViewScreen";
 
 type IconGridViewProps = {
-    listIcon: IconModel[]
+    listIcon: IconModel[],
+    view: IconGridViewScreen,
+    chooseMenu?: any
 }
 
 export function IconGridView(props: IconGridViewProps) {
-    const listIcon = props.listIcon;
+    const {listIcon, view, chooseMenu} = props;
+    // const [heightType, setHeightType] = useState<IconGridViewScreen>(IconGridViewScreen.LIST);
+    // const [height, setHeight] = useState<number>(740);
+
+    useEffect(() => {
+
+    }, [])
 
     const renderListIcon = (listIcon: IconModel[]) => {
         return listIcon.map(e => {
@@ -29,7 +38,10 @@ export function IconGridView(props: IconGridViewProps) {
     }
 
     return (
-        <Layout style={{overflowY: "scroll", height: "740px"}}>
+        <Layout style={{
+            overflowY: "scroll",
+            height: view === IconGridViewScreen.LIST ? 740 : 500
+        }}>
             <Row>
                 {
                     renderListIcon(listIcon)

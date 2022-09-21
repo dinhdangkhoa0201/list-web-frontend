@@ -14,6 +14,7 @@ import {IconModel} from "../../models/IconModel";
 import {iconApi} from "../../api/Icon.api";
 import {IconGridView} from "./IconGridView";
 import {ViewType} from "../../enums/ViewType";
+import {IconGridViewScreen} from "../../enums/IconGridViewScreen";
 
 
 type ColumnType = {
@@ -26,6 +27,7 @@ const columns: ColumnsType<ColumnType> = [
     {
         title: "Icon",
         key: "icon",
+        width: 50,
         render: (_, record) => (
             <div style={{textAlign: "center"}}>
                 {/*<Avatar size={"large"} shape={"square"}*/}
@@ -49,7 +51,7 @@ const columns: ColumnsType<ColumnType> = [
     }, {
         title: "Action",
         key: "action",
-        width: 30,
+        width: 220,
         render: (_, record) => (
             <>
                 <Space>
@@ -75,6 +77,7 @@ export function IconList() {
     const [paginationPageSize, setPaginationPageSize] = useState<number>(10);
     const [totalItem, setTotalItem] = useState<number>();
     const [viewType, setViewType] = useState<ViewType>(ViewType.TABLE);
+    const [loading, setLoading] = useState<boolean>(false);
     const [criteria, setCriteria] = useState<CriteriaRequest>({
         criteria: {
             type: "Outlined"
@@ -91,9 +94,10 @@ export function IconList() {
     }, [criteria])
 
     const handleLoadIcon = () => {
-        console.log(criteria);
+        setLoading(true);
         iconApi.findByCriteria(criteria)
             .then(data => {
+                setLoading(false);
                 setItems(data.objects);
                 setPaginationPageSize(data.pageSize);
                 setTotalItem(data.total);
@@ -145,6 +149,7 @@ export function IconList() {
             {
                 viewType === ViewType.TABLE ?
                     <Table rowKey={"id"} size={"small"} columns={columns}
+                           loading={loading}
                            pagination={{
                                defaultPageSize: paginationPageSize,
                                pageSize: paginationPageSize,
@@ -161,7 +166,7 @@ export function IconList() {
                                y: 650
                            }}/>
                     :
-                    <IconGridView listIcon={items}/>
+                    <IconGridView listIcon={items} view={IconGridViewScreen.LIST}/>
             }
         </Layout>
     )
